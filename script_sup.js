@@ -103,14 +103,14 @@ function initSupLoginPage() {
   supCurrentUser = JSON.parse(localStorage.getItem('supUser') || 'null');
   if (supCurrentUser) {
     document.getElementById('supCurrentStore').textContent = supCurrentUser.cleanName || supCurrentUser.storeName;
-    showStep('Sup_Main');
+    showStep('Menu');
   } else {
-    showStep('Sup_Login');
+    showStep('Login');
   }
 }
 
 function initSupDashboard() {
-  showStep('Sup_Dash');
+  showStep('Dash');
   loadSupDashboard();
 }
 
@@ -156,7 +156,7 @@ function doSupLogin() {
       supCurrentUser = res;
       localStorage.setItem('supUser', JSON.stringify(res));
       document.getElementById('supCurrentStore').textContent = res.cleanName || res.storeName;
-      showStep('Sup_Main');
+      showStep('Menu');
     },
     err => { hideSupLoader(); errBox.textContent = '오류: ' + err; errBox.style.display = 'block'; }
   );
@@ -165,12 +165,12 @@ function doSupLogin() {
 function supLogout() {
   supCurrentUser = null;
   localStorage.removeItem('supUser');
-  showStep('Sup_Login');
+  showStep('Login');
 }
 
 // ---- 점검 시작 ----
 function startSupCheck() {
-  if (!supCurrentUser) { showStep('Sup_Login'); return; }
+  if (!supCurrentUser) { showStep('Login'); return; }
   showSupLoader('항목 불러오는 중...');
 
   callGAS({ action: 'sup_getItems' },
@@ -183,7 +183,7 @@ function startSupCheck() {
       document.getElementById('supCheckStoreName').textContent = supCurrentUser.cleanName || supCurrentUser.storeName;
       document.getElementById('supCheckDate').textContent = dateStr;
       renderSupChecklist(items);
-      showStep('Sup_Check');
+      showStep('Check');
     },
     err => { hideSupLoader(); alert('오류: ' + err); }
   );
@@ -302,7 +302,7 @@ function showSupResult(data) {
     critBox.style.display = 'block';
     document.getElementById('supResultCriticalList').innerHTML = criticals.map(i => `<div style="font-size:12px;padding:4px 0;">• #${i.excelSeq} ${i.title}</div>`).join('');
   } else { critBox.style.display = 'none'; }
-  showStep('Sup_Result');
+  showStep('Result');
 }
 
 // ---- 이력 조회 ----
@@ -327,7 +327,7 @@ function openSupHistory() {
             </div>
           </div>`).join('');
       }
-      showStep('Sup_History');
+      showStep('History');
     },
     err => { hideSupLoader(); alert('오류: ' + err); }
   );
