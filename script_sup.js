@@ -256,10 +256,22 @@ function saveSupCheck() {
   };
 
   showSupLoader('저장 중...');
-  callGAS({ action: 'sup_save', data: encodeURIComponent(JSON.stringify(saveData)) },
-    () => { hideSupLoader(); showSupResult(saveData); },
-    err => { hideSupLoader(); alert('저장 오류: ' + err); }
-  );
+  
+  const formData = new URLSearchParams();
+  formData.append('action', 'sup_save');
+  formData.append('data', JSON.stringify(saveData));
+
+  fetch(SUP_GAS_URL, { method: 'POST', body: formData })
+    .then(res => res.json())
+    .then(res => {
+      hideSupLoader();
+      if (res.error) throw new Error(res.error);
+      showSupResult(saveData);
+    })
+    .catch(err => {
+      hideSupLoader();
+      alert('저장 오류: ' + (err.message || '네트워크 오류'));
+    });
 }
 
 function showSupResult(data) {
