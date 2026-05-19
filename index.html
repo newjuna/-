@@ -166,23 +166,23 @@ label.field-label { font-weight:700; font-size:13px; color:#374151; display:bloc
 
     <label class="field-label">🏪 매장명 검색</label>
     <div class="search-wrap">
-      <input type="text" id="searchInput" placeholder="매장명 입력 (예: 강남, 홍대...)"
-        oninput="onSearch(this.value)" autocomplete="off" style="margin-top:6px;">
-      <div id="searchDropdown" class="dropdown"></div>
+      <input type="text" id="supStoreSearch" placeholder="매장명 입력 (예: 강남, 홍대...)"
+        oninput="onSupStoreSearch(this.value)" autocomplete="off" style="margin-top:6px;">
+      <div id="supStoreDropdown" class="dropdown"></div>
     </div>
-    <div id="selectedBox" style="display:none;" class="alert-info" style="margin-top:8px;">
-      ✅ 선택: <b id="selectedName"></b>
+    <div id="supSelectedStoreBox" style="display:none;" class="alert-info">
+      ✅ 선택: <b id="supSelectedStoreName"></b>
     </div>
 
     <label class="field-label">🔑 오픈일 (비밀번호)</label>
-    <input type="text" id="pwInput" placeholder="8자리 숫자 입력 (예: 20130613)"
+    <input type="text" id="supLoginPw" placeholder="8자리 숫자 입력 (예: 20130613)"
       maxlength="8" oninput="this.value=this.value.replace(/[^0-9]/g,'')"
       style="letter-spacing:3px;font-size:16px;">
     <p style="font-size:11px;color:#9ca3af;margin:6px 0 0;">※ 매장 오픈일을 하이픈 없이 입력 (년월일 8자리)</p>
 
-    <div id="loginError" class="alert-box alert-error" style="display:none;"></div>
+    <div id="supLoginError" class="alert-box alert-error" style="display:none;"></div>
 
-    <button class="btn-main" onclick="doLogin()" style="margin-top:20px;">🚀 로그인</button>
+    <button class="btn-main" onclick="doSupLogin()" style="margin-top:20px;">🚀 로그인</button>
     <button class="btn-sub" onclick="showStep('Main')">◀ 처음으로</button>
   </div>
 
@@ -190,10 +190,10 @@ label.field-label { font-weight:700; font-size:13px; color:#374151; display:bloc
   <div id="stepMenu" class="step">
     <div style="background:linear-gradient(135deg,var(--blue),var(--blue-l));color:white;padding:16px;border-radius:16px;margin-bottom:20px;text-align:center;">
       <div style="font-size:12px;opacity:0.85;">로그인된 매장</div>
-      <div id="menuStoreName" style="font-size:18px;font-weight:900;margin-top:4px;"></div>
+      <div id="supCurrentStore" style="font-size:18px;font-weight:900;margin-top:4px;"></div>
     </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
-      <div class="card" style="text-align:center;cursor:pointer;padding:24px 10px;border-color:var(--blue);" onclick="startCheck()">
+      <div class="card" style="text-align:center;cursor:pointer;padding:24px 10px;border-color:var(--blue);" onclick="startSupCheck()">
         <div style="font-size:32px;margin-bottom:6px;">✍️</div>
         <div style="font-weight:700;font-size:13px;color:var(--blue);">이번 주<br>점검 시작</div>
       </div>
@@ -214,9 +214,9 @@ label.field-label { font-weight:700; font-size:13px; color:#374151; display:bloc
       </div>
       <span id="checkProgress" style="background:var(--blue);color:white;padding:5px 12px;border-radius:20px;font-size:12px;font-weight:700;">0/29</span>
     </div>
-    <div id="checklistContainer"></div>
+    <div id="supChecklistContainer"></div>
     <div style="position:sticky;bottom:12px;background:rgba(255,255,255,0.95);backdrop-filter:blur(8px);padding:10px 0;border-top:1px solid #e5e7eb;">
-      <button class="btn-main" onclick="saveCheck()">💾 점검 결과 저장</button>
+      <button class="btn-main" onclick="saveSupCheck()">💾 점검 결과 저장</button>
       <button class="btn-sub" onclick="showStep('Menu')">◀ 이전</button>
     </div>
   </div>
@@ -226,12 +226,12 @@ label.field-label { font-weight:700; font-size:13px; color:#374151; display:bloc
     <div style="text-align:center;padding:24px 0 16px;">
       <div style="font-size:52px;margin-bottom:8px;">✅</div>
       <h2 style="color:var(--blue);margin:0 0 4px;">점검 완료!</h2>
-      <p id="resultSubtitle" style="color:#6b7280;font-size:13px;margin:0;"></p>
+      <p id="supResultSubtitle" style="color:#6b7280;font-size:13px;margin:0;"></p>
     </div>
-    <div id="resultGroupScores"></div>
-    <div id="resultCritical" style="display:none;" class="alert-box alert-error">
+    <div id="supResultGroupScores"></div>
+    <div id="supResultCritical" style="display:none;" class="alert-box alert-error">
       <div style="font-weight:700;margin-bottom:6px;">⚠️ 중점관리 필요 항목 (0점)</div>
-      <div id="resultCriticalList"></div>
+      <div id="supResultCriticalList"></div>
     </div>
     <button class="btn-main" onclick="showStep('Menu')">🏠 메뉴로</button>
     <button class="btn-sub" onclick="openHistory()">📅 이력 보기</button>
