@@ -5,7 +5,7 @@
 // ============================================================
 
 // ★ 반드시 실제 Apps Script 배포 URL로 교체하세요
-const SUP_GAS_URL = 'https://script.google.com/macros/s/AKfycbyRWzNlBwVGTCVyvD9lyAx6Ltxe8e4KIEuzUe6LaEXdHRweXmeIP3APiGSGmEew-DQu/exec';
+const SUP_GAS_URL = 'https://script.google.com/macros/s/AKfycbwG73J7okWAK7hakI8WOjsRF83K8tvIi_TKqeVSVfs4-ysaAI2Fk-vMNDd6Nl9W26sH/exec';
 
 // ---- JSONP 헬퍼 ----
 function callGAS(params, onSuccess, onError) {
