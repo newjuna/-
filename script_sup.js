@@ -199,19 +199,19 @@ function renderSupChecklist(items) {
     if (item.legalDutyPrimary !== lastGroup) {
       lastGroup = item.legalDutyPrimary;
       html += `<div style="margin:18px 0 10px;font-weight:800;font-size:13px;color:#374151;">
-        <span class="sup-badge sup-badge-${item.legalDutyPrimary}">${item.legalDutyPrimary}</span>
+        <span class="badge bg-${item.legalDutyPrimary}">${item.legalDutyPrimary}</span>
         ${groupLabels[item.legalDutyPrimary] || ''}
       </div>`;
     }
     html += `
-    <div class="sup-item-card ${item.criticalFlag === 'Y' ? 'critical' : ''}" id="card_${item.checkId}">
+    <div class="card ${item.criticalFlag === 'Y' ? 'critical' : ''}" id="card_${item.checkId}" style="margin-bottom:14px;padding:16px;">
       <div style="margin-bottom:10px;">
         <span style="font-size:10px;color:#9ca3af;font-weight:600;">#${item.excelSeq} ${item.category}</span>
         ${item.criticalFlag === 'Y' ? '<span style="color:#C62828;font-size:10px;font-weight:700;margin-left:6px;">★중점</span>' : ''}
         <div style="font-size:13px;font-weight:700;color:#1f2937;margin-top:4px;line-height:1.5;">${item.title}</div>
       </div>
-      <div style="display:flex;gap:6px;margin-bottom:8px;">
-        ${[0, 1, 2, 3, 4, 5].map(s => `<div class="sup-score-btn" id="btn_${item.checkId}_${s}" onclick="selectSupScore('${item.checkId}',${s})">${s}점</div>`).join('')}
+      <div class="score-row">
+        ${[0, 1, 2, 3, 4, 5].map(s => `<div class="score-btn" id="btn_${item.checkId}_${s}" onclick="selectSupScore('${item.checkId}',${s})">${s}점</div>`).join('')}
       </div>
     </div>`;
   });
@@ -222,7 +222,7 @@ function renderSupChecklist(items) {
 function selectSupScore(checkId, score) {
   [0, 1, 2, 3, 4, 5].forEach(s => {
     const btn = document.getElementById(`btn_${checkId}_${s}`);
-    if (btn) { btn.className = 'sup-score-btn'; if (s === score) btn.classList.add('selected-' + s); }
+    if (btn) { btn.className = 'score-btn'; if (s === score) btn.classList.add('s' + s); }
   });
   if (!supScores[checkId]) supScores[checkId] = {};
   supScores[checkId].score = score;
@@ -471,7 +471,7 @@ function renderImprovementList(data, filter) {
   const list = filter === 'all' ? data : data.filter(r => r.status === filter);
   if (!list.length) { el.innerHTML = '<p style="color:#9ca3af;text-align:center;padding:20px;">항목 없음</p>'; return; }
   el.innerHTML = list.map(r =>
-    `<div class="sup-item-card" style="border-left:4px solid ${r.status === '완료' ? '#2E7D32' : '#E65100'};">
+    `<div class="card" style="border-left:4px solid ${r.status === '완료' ? '#2E7D32' : '#E65100'}; margin-bottom:10px; padding:16px;">
       <div style="display:flex;justify-content:space-between;align-items:flex-start;">
         <div style="flex:1;">
           <div style="font-size:12px;color:#9ca3af;">${r.regDate} · ${r.storeName}</div>
