@@ -8,122 +8,130 @@
 <script src="https://www.gstatic.com/charts/loader.js"></script>
 <style>
 :root {
-  --blue: #1565C0; --blue-l: #1976D2;
-  --green: #2E7D32; --orange: #E65100;
-  --red: #C62828; --gray: #f3f4f6;
+  --daiso-red: #E30613; /* 다이소 시그니처 레드 */
+  --daiso-red-l: #fca5a5;
+  --dark-text: #111827;
+  --gray-bg: #f8fafc;
+  --blue: #2563eb;
+  --green: #059669;
+  --orange: #ea580c;
 }
 * { box-sizing: border-box; }
 body {
   font-family: 'Noto Sans KR', sans-serif;
-  background: linear-gradient(135deg, #EFF6FF 0%, #E8F5E9 100%);
-  margin: 0; padding: 15px; min-height: 100vh; color: #1f2937;
+  background-color: var(--gray-bg);
+  margin: 0; padding: 15px; min-height: 100vh; color: var(--dark-text);
 }
-.container { max-width: 500px; margin: auto; }
+.container { max-width: 500px; margin: auto; padding-bottom: 120px; /* 하단 고정 버튼 겹침 완벽 방지 */ }
 .step { display: none; }
-.active { display: block; animation: fadeIn 0.35s ease-out; }
-@keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+.active { display: block; animation: fadeIn 0.3s ease-out; }
+@keyframes fadeIn { from{opacity:0;transform:translateY(5px)} to{opacity:1;transform:translateY(0)} }
 
-/* 헤더 */
+/* 헤더 (다이소 스타일 네이비/레드 포인트) */
 .app-header {
-  background: linear-gradient(135deg, var(--blue), var(--blue-l));
-  color: white; padding: 16px 20px; border-radius: 20px;
+  background: #ffffff;
+  color: var(--dark-text); padding: 20px; border-radius: 16px;
   margin-bottom: 20px; text-align: center;
-  box-shadow: 0 8px 24px rgba(21,101,192,0.25);
+  border-top: 5px solid var(--daiso-red);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
 }
-.app-header h1 { margin:0; font-size:18px; font-weight:900; }
-.app-header p { margin:6px 0 0; font-size:12px; opacity:0.85; }
+.app-header h1 { margin:0; font-size:19px; font-weight:900; letter-spacing:-0.5px; }
+.app-header p { margin:6px 0 0; font-size:12px; color:#6b7280; }
 
 /* 버튼 */
 .btn-main {
-  width:100%; padding:15px; background:linear-gradient(135deg,var(--blue),var(--blue-l));
-  color:white; border:none; border-radius:14px; font-size:15px; font-weight:700;
-  cursor:pointer; margin:8px 0; box-shadow:0 4px 12px rgba(21,101,192,0.2);
+  width:100%; padding:15px; background:var(--daiso-red);
+  color:white; border:none; border-radius:10px; font-size:15px; font-weight:800;
+  cursor:pointer; margin:8px 0; box-shadow:0 4px 10px rgba(227,6,19,0.2);
   transition:all 0.2s; font-family:inherit;
 }
 .btn-main:active { transform:scale(0.98); }
 .btn-sub {
-  width:100%; padding:13px; background:white; color:#4b5563;
-  border:1px solid #d1d5db; border-radius:14px; font-size:14px;
-  font-weight:600; cursor:pointer; margin:4px 0; transition:all 0.2s; font-family:inherit;
+  width:100%; padding:14px; background:white; color:#374151;
+  border:1px solid #d1d5db; border-radius:10px; font-size:14px;
+  font-weight:700; cursor:pointer; margin:4px 0; transition:all 0.2s; font-family:inherit;
 }
-.btn-green { background:linear-gradient(135deg,var(--green),#43A047) !important; }
+.btn-sub:hover { background:#f3f4f6; }
+.btn-green { background:var(--green) !important; box-shadow:0 4px 10px rgba(5,150,105,0.2); }
 
-/* 카드 */
+/* 카드 (플랫하고 깔끔한 라인) */
 .card {
-  background:white; border-radius:16px; padding:18px;
-  margin-bottom:14px; border:1px solid #e5e7eb;
-  box-shadow:0 2px 8px rgba(0,0,0,0.04);
+  background:white; border-radius:12px; padding:20px;
+  margin-bottom:16px; border:1px solid #e5e7eb;
+  box-shadow:0 2px 6px rgba(0,0,0,0.02);
 }
-.card.critical { border-left:4px solid var(--red); }
-.card.scored { border-color:var(--blue); }
+.card.critical { border-left:5px solid var(--daiso-red); background-color:#fef2f2; }
+.card.scored { border-color:#9ca3af; }
 
 /* 인풋 */
 input[type=text], select {
-  width:100%; padding:13px 16px; border:1px solid #d1d5db;
-  border-radius:10px; font-size:15px; margin-top:8px;
-  font-family:inherit; background:white; outline:none; transition:border 0.2s;
+  width:100%; padding:14px 16px; border:1px solid #d1d5db;
+  border-radius:8px; font-size:15px; margin-top:8px;
+  font-family:inherit; background:white; outline:none; transition:all 0.2s;
 }
-input:focus, select:focus { border-color:var(--blue); box-shadow:0 0 0 3px rgba(21,101,192,0.1); }
-label.field-label { font-weight:700; font-size:13px; color:#374151; display:block; margin-top:14px; }
+input:focus, select:focus { border-color:var(--daiso-red); box-shadow:0 0 0 3px rgba(227,6,19,0.1); }
+label.field-label { font-weight:800; font-size:13px; color:#4b5563; display:block; margin-top:16px; }
 
 /* 뱃지 */
-.badge { display:inline-block; padding:3px 10px; border-radius:20px; font-size:11px; font-weight:700; color:white; margin-left:4px; }
-.bg-A{background:#1565C0} .bg-B{background:#6A1B9A} .bg-C{background:#C62828}
-.bg-D{background:#E65100} .bg-E{background:#2E7D32} .bg-F{background:#00838F}
+.badge { display:inline-block; padding:4px 10px; border-radius:6px; font-size:11px; font-weight:800; color:white; margin-left:4px; }
+.bg-A{background:#1f2937} .bg-B{background:#4b5563} .bg-C{background:var(--daiso-red)}
+.bg-D{background:var(--orange)} .bg-E{background:var(--green)} .bg-F{background:#0284c7}
 
 /* 점수 버튼 */
-.score-row { display:flex; gap:5px; margin:10px 0; }
+.score-row { display:flex; gap:6px; margin:12px 0 6px; }
 .score-btn {
-  flex:1; text-align:center; padding:11px 2px; border-radius:10px;
-  font-size:13px; font-weight:700; background:var(--gray); color:#4b5563;
-  cursor:pointer; border:2px solid transparent; transition:all 0.2s;
+  flex:1; text-align:center; padding:12px 0; border-radius:8px;
+  font-size:14px; font-weight:800; background:#f3f4f6; color:#6b7280;
+  cursor:pointer; border:1px solid #e5e7eb; transition:all 0.15s;
 }
-.s0,.s1{background:var(--red)!important;color:white!important;border-color:var(--red)!important}
+.score-btn:hover { background:#e5e7eb; }
+/* 선택 시 다이소 스타일 컬러팝 */
+.s0,.s1{background:var(--daiso-red)!important;color:white!important;border-color:var(--daiso-red)!important}
 .s2{background:var(--orange)!important;color:white!important;border-color:var(--orange)!important}
-.s3{background:#F9A825!important;color:#333!important;border-color:#F9A825!important}
+.s3{background:#f59e0b!important;color:white!important;border-color:#f59e0b!important}
 .s4{background:var(--green)!important;color:white!important;border-color:var(--green)!important}
 .s5{background:var(--blue)!important;color:white!important;border-color:var(--blue)!important}
 
 /* 등급 */
 .grade-badge { display:inline-block; padding:4px 14px; border-radius:20px; font-weight:800; font-size:14px; color:white; }
 .g-우수{background:var(--blue)} .g-양호{background:var(--green)}
-.g-보통{background:#F9A825;color:#333} .g-미흡{background:var(--orange)} .g-부진{background:var(--red)}
+.g-보통{background:#f59e0b;} .g-미흡{background:var(--orange)} .g-부진{background:var(--daiso-red)}
 
 /* 드롭다운 */
 .search-wrap { position:relative; }
 .dropdown {
   display:none; position:absolute; z-index:100; width:100%;
-  background:white; border:1px solid #d1d5db; border-radius:12px;
-  box-shadow:0 8px 20px rgba(0,0,0,0.12); max-height:220px; overflow-y:auto; margin-top:4px;
+  background:white; border:1px solid #d1d5db; border-radius:8px;
+  box-shadow:0 8px 16px rgba(0,0,0,0.1); max-height:220px; overflow-y:auto; margin-top:4px;
 }
 .dropdown-item {
-  padding:12px 16px; cursor:pointer; font-size:14px; border-bottom:1px solid #f3f4f6;
+  padding:14px 16px; cursor:pointer; font-size:14px; font-weight:500; border-bottom:1px solid #f3f4f6;
 }
-.dropdown-item:hover { background:#EFF6FF; }
+.dropdown-item:hover { background:#fef2f2; color:var(--daiso-red); font-weight:700; }
 
 /* 로더 */
 #loader {
   position:fixed; top:0; left:0; width:100%; height:100%;
-  background:rgba(255,255,255,0.92); display:none; flex-direction:column;
-  align-items:center; justify-content:center; z-index:9999; font-weight:700;
-  font-size:16px; color:var(--blue);
+  background:rgba(255,255,255,0.9); display:none; flex-direction:column;
+  align-items:center; justify-content:center; z-index:9999; font-weight:800;
+  font-size:15px; color:var(--daiso-red);
 }
 .loader-spin {
-  width:40px; height:40px; border:4px solid #e5e7eb;
-  border-top-color:var(--blue); border-radius:50%;
+  width:36px; height:36px; border:4px solid #fecaca;
+  border-top-color:var(--daiso-red); border-radius:50%;
   animation:spin 0.8s linear infinite; margin-bottom:12px;
 }
 @keyframes spin { to{transform:rotate(360deg)} }
 
 /* 테이블 */
-.result-table { width:100%; border-collapse:collapse; font-size:12px; border-radius:10px; overflow:hidden; }
-.result-table th { background:var(--blue); color:white; padding:8px; text-align:center; }
-.result-table td { padding:8px; text-align:center; border-bottom:1px solid #f3f4f6; background:white; }
+.result-table { width:100%; border-collapse:collapse; font-size:12px; border-radius:8px; overflow:hidden; }
+.result-table th { background:#1f2937; color:white; padding:10px 8px; text-align:center; }
+.result-table td { padding:10px 8px; text-align:center; border-bottom:1px solid #e5e7eb; background:white; }
 
 /* 알림박스 */
-.alert-box { padding:12px 16px; border-radius:12px; font-size:13px; margin:10px 0; }
-.alert-error { background:#FEF2F2; border:1px solid #FECACA; color:var(--red); font-weight:600; }
-.alert-info { background:#EFF6FF; border:1px solid #BFDBFE; color:var(--blue); }
+.alert-box { padding:14px 16px; border-radius:8px; font-size:13px; margin:10px 0; }
+.alert-error { background:#fef2f2; border:1px solid #fecaca; color:var(--daiso-red); font-weight:700; }
+.alert-info { background:#f0fdf4; border:1px solid #bbf7d0; color:var(--green); font-weight:600; }
 </style>
 </head>
 <body>
@@ -132,8 +140,8 @@ label.field-label { font-weight:700; font-size:13px; color:#374151; display:bloc
 
   <!-- 앱 헤더 -->
   <div class="app-header">
-    <h1>🏛️ 관리감독자 업무수행 평가</h1>
-    <p>산업안전보건법 시행령 제15조 기반 · 주간순회점검</p>
+    <h1>관리감독자 업무수행 평가</h1>
+    <p>산업안전보건법 기반 주간순회점검</p>
   </div>
 
   <!-- ===== 메인 메뉴 ===== -->
@@ -215,9 +223,9 @@ label.field-label { font-weight:700; font-size:13px; color:#374151; display:bloc
       <span id="supCheckProgress" style="background:var(--blue);color:white;padding:5px 12px;border-radius:20px;font-size:12px;font-weight:700;">0/29</span>
     </div>
     <div id="supChecklistContainer"></div>
-    <div style="position:sticky;bottom:12px;background:rgba(255,255,255,0.95);backdrop-filter:blur(8px);padding:10px 0;border-top:1px solid #e5e7eb;">
-      <button class="btn-main" onclick="saveSupCheck()">💾 점검 결과 저장</button>
-      <button class="btn-sub" onclick="showStep('Menu')">◀ 이전</button>
+    <div style="position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:500px;background:rgba(255,255,255,0.95);backdrop-filter:blur(8px);padding:16px;border-top:1px solid #e5e7eb;z-index:100;display:flex;gap:10px;">
+      <button class="btn-sub" onclick="showStep('Menu')" style="margin:0;flex:1;">◀ 이전</button>
+      <button class="btn-main" onclick="saveSupCheck()" style="margin:0;flex:2;">💾 점검 결과 저장</button>
     </div>
   </div>
 
@@ -225,7 +233,7 @@ label.field-label { font-weight:700; font-size:13px; color:#374151; display:bloc
   <div id="stepResult" class="step">
     <div style="text-align:center;padding:24px 0 16px;">
       <div style="font-size:52px;margin-bottom:8px;">✅</div>
-      <h2 style="color:var(--blue);margin:0 0 4px;">점검 완료!</h2>
+      <h2 style="color:var(--daiso-red);margin:0 0 4px;">점검 완료!</h2>
       <p id="supResultSubtitle" style="color:#6b7280;font-size:13px;margin:0;"></p>
     </div>
     <div id="supResultGroupScores"></div>
@@ -311,6 +319,6 @@ label.field-label { font-weight:700; font-size:13px; color:#374151; display:bloc
 
 </div><!-- /container -->
 
-<script src="script_sup.js?v=4"></script>
+<script src="script_sup.js?v=6" charset="UTF-8"></script>
 </body>
 </html>
